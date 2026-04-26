@@ -21,23 +21,26 @@
                 </div>
             </div>
             <div class="p-8">
-                <form action="#" class="space-y-6">
+                <form action="{{ route('profile.update') }}" method="POST" class="space-y-6">
+                    @csrf
+                    @method('patch')
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-bold text-[#0A1931] mb-2">Nome Completo</label>
-                            <input type="text" value="João Silva" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] focus:border-transparent outline-none transition">
+                            <input type="text" name="name" value="{{ Auth::user()->name }}" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] focus:border-transparent outline-none transition">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-[#0A1931] mb-2">E-mail</label>
-                            <input type="email" value="joao.silva@exemplo.com" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] focus:border-transparent outline-none transition">
+                            <input type="email" name="email" value="{{ Auth::user()->email }}" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] focus:border-transparent outline-none transition">
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-[#0A1931] mb-2">CPF</label>
-                            <input type="text" placeholder="123.456.789-00" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-400 cursor-not-allowed" disabled>
+                            <input type="text" placeholder="CPF não cadastrado" name="cpf" value="{{ Auth::user()->cpf }}" value="{{ Auth::user()->cpf }}"class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl text-slate-400 cursor-not-allowed" disabled>
                         </div>
                         <div>
                             <label class="block text-sm font-bold text-[#0A1931] mb-2">Celular</label>
-                            <input type="text" value="(11) 98765-4321" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] outline-none transition">
+                            <input type="text" placeholder="Adicionar celular" name="phone" value="{{ Auth::user()->phone }}" class="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-[#102C70] outline-none transition">
                         </div>
                     </div>
                     <button type="submit" class="bg-[#102C70] text-white px-8 py-3 rounded-xl font-bold hover:bg-[#0A1D4A] transition-all shadow-md">
@@ -68,16 +71,6 @@
                         <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#102C70]"></div>
                     </label>
                 </div>
-                <div class="py-4 flex justify-between items-center">
-                    <div>
-                        <p class="font-bold text-[#0A1931]">Alerta de Gastos Elevados</p>
-                        <p class="text-sm text-slate-500">Aviso quando uma transação exceder R$ 1.000,00.</p>
-                    </div>
-                    <label class="relative inline-flex items-center cursor-pointer">
-                        <input type="checkbox" checked class="sr-only peer">
-                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#102C70]"></div>
-                    </label>
-                </div>
             </div>
         </section>
 
@@ -95,7 +88,7 @@
                 <div class="bg-white border border-gray-100 rounded-xl p-4 mb-8 flex gap-4 items-start">
                     <i class="fa-solid fa-circle-info text-blue-500 mt-1"></i>
                     <p class="text-sm text-slate-600 leading-relaxed">
-                        <strong>Privacidade Garantida:</strong> O Open Finance permite que você revogue o acesso aos seus dados a qualquer momento. Suas informações nunca são compartilhadas sem sua autorização explícita.
+                        <strong>Privacidade Garantida:</strong> O Open Finance permite que você revogue o acesso aos seus dados a qualquer momento.
                     </p>
                 </div>
 
@@ -109,7 +102,7 @@
                             </div>
                             <div>
                                 <p class="font-bold text-[#0A1931]">{{ $banco }}</p>
-                                <p class="text-xs text-slate-400">Autorizado válido até: 12/12/2024</p>
+                                <p class="text-xs text-slate-400">Autorizado válido até: 12/12/2026</p>
                             </div>
                         </div>
                         <button class="text-red-500 text-sm font-bold border border-red-100 px-4 py-2 rounded-lg hover:bg-red-500 hover:text-white transition-all">
@@ -120,6 +113,5 @@
                 </div>
             </div>
         </section>
-
     </div>
 @endsection

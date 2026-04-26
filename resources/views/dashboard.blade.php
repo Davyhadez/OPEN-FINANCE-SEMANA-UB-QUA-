@@ -12,9 +12,28 @@
          style="display: none;">
 
         <div class="bg-white rounded-2xl p-8 mb-8 shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] border border-gray-100 flex justify-between items-center">
-            <div>
-                <h1 class="text-[28px] font-bold text-[#0A1931] tracking-tight">Visão Geral</h1>
-                <p class="text-[#64748b] text-lg mt-1 font-medium">Acompanhe todas as suas contas em um só lugar.</p>
+            <div class="mb-10 space-y-6">
+                <div>
+                    <h1 class="text-xl font-black text-[#0A1931] uppercase tracking-tighter">
+                        Seja bem-vindo, 
+                        <span class="text-[#102C70]">
+                            @php
+                                $nameParts = explode(' ', Auth::user()->name);
+                                $firstName = $nameParts[0];
+                                $lastName = count($nameParts) > 1 ? end($nameParts) : '';
+                            @endphp
+                            {{ $firstName }} {{ $lastName }}
+                        </span>
+                    </h1>
+                    <div class="h-1 w-12 bg-[#102C70] mt-2"></div> </div>
+
+                    <h2 class="text-[24px] font-black text-[#0A1931] uppercase tracking-tight">
+                        Visão Geral
+                    </h2>
+                    <p class="text-slate-500 text-sm font-bold uppercase tracking-widest mt-1">
+                        Acompanhe todas as suas contas em um só lugar
+                    </p>
+                
             </div>
 
             <div x-data="{ open: false }"> 
@@ -43,7 +62,7 @@
                                     Selecione o banco que deseja conectar via Open Finance.
                                 </p>
                             </div>
-                            <button @click="open = false" class="text-slate-400 hover:text-slate-600 transition">
+                            <button @click="open = false" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
                                 <i class="fa-solid fa-xmark text-xl"></i>
                             </button>
                         </div>
@@ -115,34 +134,122 @@
             </div>
         </div>
 
-        <div class="bg-white rounded-2xl shadow-sm border-t-4 border-t-[#102C70] border-x border-b border-gray-100 overflow-hidden">
+        <div class="bg-white rounded-2xl shadow-sm border-t-4 border-t-[#102C70] border-gray-100 overflow-hidden">
             <div class="p-8 border-b border-gray-50 flex justify-between items-center">
-                <div>
-                    <h3 class="text-xl font-bold text-[#0A1931]">Últimas Transações</h3>
-                    <p class="text-sm text-slate-500 font-medium">Atividade recente de todas as contas conectadas</p>
-                </div>
-                <a href="{{ route('contas') }}" class="text-[#102C70] font-bold text-sm hover:underline">Ver Contas</a>
+                <h3 class="text-xl font-bold text-[#0A1931]">Últimas Transações</h3>
             </div>
-
             <div class="overflow-x-auto px-4 pb-4"> 
-                <table class="w-full text-left border-separate border-spacing-y-0">
-                    <thead class="bg-[#F8FAFC] text-slate-400 text-xs uppercase tracking-wider font-bold">
+                <table class="w-full text-left">
+                    <thead class="bg-[#F8FAFC] text-slate-500 text-xs uppercase font-bold">
                         <tr>
-                            <th class="px-10 py-4 first:rounded-l-lg last:rounded-r-lg">Data</th>
+                            <th class="px-10 py-4">Data</th>
                             <th class="px-10 py-4">Descrição</th>
                             <th class="px-10 py-4">Categoria</th>
-                            <th class="px-10 py-4 text-right last:rounded-r-lg">Valor</th>
+                            <th class="px-10 py-4 text-right">Valor</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-50">
+                    <tbody class="divide-y divide-gray-100">
                         <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="px-10 py-6 text-slate-500 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
                             <td class="px-10 py-6 font-bold text-[#0A1931]">Starbucks</td>
                             <td class="px-10 py-6">
-                                <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full text-[11px] font-bold uppercase">Alimentação</span>
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Alimentação
+                                </span>
                             </td>
                             <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 24,50</td>
                         </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Uber</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Transporte
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 35,50</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Mercado livre</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Compras
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 9,99</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Ifood</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Alimentação
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 50,50</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Starbucks</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Alimentação
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 24,50</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Posto Shell</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Transporte
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 100,00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Netflix</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Assinaturas
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 29,50</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Spotify</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Assinaturas
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 9,50</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Tranferência Pix</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Transferências
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[#0A1931]">-R$ 30,00</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="px-10 py-6 text-slate-600 text-sm">24 abr, 2026</td>
+                            <td class="px-10 py-6 font-bold text-[#0A1931]">Salário</td>
+                            <td class="px-10 py-6">
+                                <span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold uppercase">
+                                    Renda
+                                </span>
+                            </td>
+                            <td class="px-10 py-6 text-right font-bold text-[green]">+R$ 8.000,00</td>
+                        </tr>
+
                     </tbody>
                 </table>
             </div>

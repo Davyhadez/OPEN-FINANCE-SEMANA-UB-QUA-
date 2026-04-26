@@ -3,19 +3,20 @@
 @section('title', 'Minhas Contas')
 
 @section('content')
-    <div x-data="{ show: false }" 
+    <div x-data="{ show: false, modalAberto: false }" 
          x-init="setTimeout(() => show = true, 50)" 
          x-show="show"
          x-transition:enter="transition ease-out duration-700"
          x-transition:enter-start="opacity-0 translate-y-8"
-         x-transition:enter-end="opacity-100 translate-y-0">
+         x-transition:enter-end="opacity-100 translate-y-0"
+         class="relative">
 
         <div class="flex justify-between items-center mb-8">
             <div>
                 <h1 class="text-[28px] font-bold text-[#0A1931] tracking-tight">Minhas Contas</h1>
                 <p class="text-[#64748b] text-lg mt-1 font-medium">Gerencie suas instituições conectadas via Open Finance.</p>
             </div>
-            <button class="bg-[#102C70] hover:bg-[#0A1D4A] text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md active:scale-95">
+            <button @click="modalAberto = true" class="bg-[#102C70] hover:bg-[#0A1D4A] text-white px-6 py-3 rounded-xl font-bold transition-all shadow-md active:scale-95">
                 Adicionar Instituição
             </button>
         </div>
@@ -60,14 +61,77 @@
             </div>
             @endforeach
 
-            <button class="bg-white rounded-2xl border-2 border-dashed border-slate-200 p-8 flex flex-col items-center justify-center text-center hover:border-blue-300 hover:bg-blue-50/30 transition-all group min-h-[220px]">
+            <button @click="modalAberto = true" class="bg-white rounded-2xl border-2 border-dashed border-slate-200 p-8 flex flex-col items-center justify-center text-center hover:border-blue-300 hover:bg-blue-50/30 transition-all group min-h-[220px]">
                 <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-slate-400 mb-4 group-hover:scale-110 group-hover:bg-white group-hover:shadow-sm transition-all">
                     <i class="fa-solid fa-wallet text-2xl"></i>
                 </div>
                 <h4 class="font-bold text-[#0A1931] mb-2">Conectar nova conta</h4>
                 <p class="text-sm text-slate-400 px-4">Agregue mais bancos para ter uma visão completa das suas finanças.</p>
             </button>
+        </div>
 
+        
+        <div x-show="modalAberto" 
+            class="fixed inset-0 z-[99] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            style="display: none;">
+            
+            <div @click.away="modalAberto = false" 
+                class="bg-white w-full max-w-xl rounded-[32px] shadow-2xl overflow-hidden"
+                x-transition:enter="transition ease-out duration-300 transform"
+                x-transition:enter-start="scale-95 translate-y-8 opacity-0"
+                x-transition:enter-end="scale-100 translate-y-0 opacity-100"
+                x-transition:leave="transition ease-in duration-200 transform"
+                x-transition:leave-start="scale-100 translate-y-0 opacity-100"
+                x-transition:leave-end="scale-95 translate-y-8 opacity-0">
+                
+                <div class="p-8 border-b border-gray-50 flex justify-between items-center">
+                    <h3 class="text-2xl font-bold text-[#0A1931]">Conectar Banco</h3>
+                    <button @click="modalAberto = false" class="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                        <i class="fa-solid fa-xmark text-xl"></i>
+                    </button>
+                </div>
+
+                <div class="p-8 grid grid-cols-2 gap-4">
+                    <button class="p-6 border border-gray-100 rounded-3xl hover:border-orange-200 hover:bg-orange-50 transition-all group text-center">
+                        <div class="w-12 h-12 bg-orange-500 rounded-2xl mx-auto mb-3 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-building-columns text-xl"></i>
+                        </div>
+                        <span class="font-bold text-[#0A1931]">Itaú Unibanco</span>
+                    </button>
+
+                    <button class="p-6 border border-gray-100 rounded-3xl hover:border-purple-200 hover:bg-purple-50 transition-all group text-center">
+                        <div class="w-12 h-12 bg-purple-600 rounded-2xl mx-auto mb-3 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-n text-xl"></i>
+                        </div>
+                        <span class="font-bold text-[#0A1931]">Nubank</span>
+                    </button>
+
+                    <button class="p-6 border border-gray-100 rounded-3xl hover:border-yellow-200 hover:bg-yellow-50 transition-all group text-center">
+                        <div class="w-12 h-12 bg-[#F7D116] rounded-2xl mx-auto mb-3 flex items-center justify-center text-[#0038A8] shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-b text-xl"></i>
+                        </div>
+                        <span class="font-bold text-[#0A1931]">Banco do Brasil</span>
+                    </button>
+
+                    <button class="p-6 border border-gray-100 rounded-3xl hover:border-red-200 hover:bg-red-50 transition-all group text-center">
+                        <div class="w-12 h-12 bg-[#EC0000] rounded-2xl mx-auto mb-3 flex items-center justify-center text-white shadow-lg group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-fire-flame-curved text-xl"></i>
+                        </div>
+                        <span class="font-bold text-[#0A1931]">Santander</span>
+                    </button>
+                </div>
+
+                <div class="p-6 bg-gray-50 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock text-emerald-500 text-xs"></i>
+                    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest">Ambiente Seguro Open Finance</span>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
